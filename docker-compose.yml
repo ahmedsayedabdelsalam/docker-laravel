@@ -28,8 +28,8 @@ services:
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_USER: root
-      MYSQL_PASSWORD:
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
@@ -45,4 +45,18 @@ services:
     ports:
       - "9000:9000"
     networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links: 
+      - mysql:mysql
+    ports:
+      - "8081:80"
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mysql
+    networks: 
       - laravel
